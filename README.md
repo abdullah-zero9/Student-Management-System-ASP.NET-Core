@@ -1,0 +1,1 @@
+# NETcore masterDetails -- student managment
