@@ -1,0 +1,91 @@
+﻿@model Exam.Models.ViewModels.StudentVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="border border-2 border-secondary p-3">
+    <form asp-action="Create" asp-controller="Students" method="post" enctype="multipart/form-data">
+        <div class="form-group row mb-2 mt-3 ">
+            <div class="col-6">
+                <h3 class="text-lg-center">Add New Student</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row mb-2 mt-3">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.StudentName)</label>
+                    <div class="col-5">
+                        <input asp-for="StudentName" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="StudentName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.DateOfBirth)</label>
+                    <div class="col-5">
+                        <input asp-for="DateOfBirth" class="form-control" type="date" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.Phone)</label>
+                    <div class="col-5">
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.ImagePath)</label>
+                    <div class="col-5">
+                        <input asp-for="ImagePath" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="form-check-label col-4">@Html.DisplayNameFor(x => x.StudentStatus)</label>
+                    <div class="col-5">
+                        <label class="form-check-label">
+                            <input asp-for="StudentStatus" class="form-check-input" />
+                            Withdrawn
+                        </label>
+                    </div>
+
+                    <div class="col-3">
+                        <span asp-validation-for="StudentStatus" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row mb-2 mt-3">
+                    <div class="col-9 offset-4">
+                        <button type="submit" class=" btn btn-outline-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 mt-2 ">
+                <div class="d-flex justify-content-end mb-1">
+                    <a id="btnPlus" class="btn btn-info"><i class="fa fa-plus"></i> failed in Course</a>
+                </div>
+                <div id="CourseContainer">
+                    <script>
+                        LoadData();
+                    </script>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Students" class="btn btn-link"><i class="fa fa-arrow-left"></i> Back to list</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}

@@ -1,0 +1,143 @@
+﻿@model Exam.Models.ViewModels.StudentVM
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="border border-2 border-secondary p-3">
+    <form asp-action="Edit" asp-controller="Students" method="post" enctype="multipart/form-data">
+        <div class="form-group row mb-2 mt-3 ">
+            <div class="col-6">
+                <h3 class="text-lg-center">Edit New Student</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="StudentId" type="hidden"/>
+                <input asp-for="Image" type="hidden" />
+                <div class="form-group row mb-2 mt-3">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.StudentName)</label>
+                    <div class="col-5">
+                        <input asp-for="StudentName" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="StudentName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.DateOfBirth)</label>
+                    <div class="col-5">
+                        <input asp-for="DateOfBirth" class="form-control" type="date" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.Phone)</label>
+                    <div class="col-5">
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="control-label col-4">@Html.DisplayNameFor(x=>x.ImagePath)</label>
+
+
+@*                    <div class="col-5">
+                        <input asp-for="ImagePath" class="form-control" />
+                        <img class="rounded mt-1" src="@Model.Image" width="45" height="45" />
+                        @if (!string.IsNullOrEmpty(Model.Image))
+                        {
+                            <button type="button" class="btn btn-outline-danger btn-sm" id="btnRemovePhoto" onclick="return confirm('Photo Deleted Successfully!! Press Ok & Click Update Button');">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        }
+                    </div>*@
+
+
+                    <div class="col-5">
+                        <input asp-for="ImagePath" class="form-control" />
+                        <img id="photo" class="rounded mt-1" src="@Model.Image" width="45" height="45" />
+                        @if (!string.IsNullOrEmpty(Model.Image))
+                        {
+                            @*<button type="button" class="btn btn-outline-danger btn-sm" onclick="deletePhoto()"
+                                    data-confirm-message="Photo Deleted Successfully!! Press Ok & Click Update Button">
+                                <i class="fa fa-trash"></i>
+                            </button>*@
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="deletePhoto()"
+                                    data-confirm-message="Photo Deleted Successfully!! Press Ok & Click Update Button">
+                                <i class="fa fa-trash"></i>
+                            </button>
+
+                        }
+                    </div>
+
+
+
+                    <div class="col-3">
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="form-check-label col-4">@Html.DisplayNameFor(x => x.StudentStatus)</label>
+                    <div class="col-5">
+                        <label class="form-check-label">
+                            <input asp-for="StudentStatus" class="form-check-input" />
+                            <text class="text-danger">Withdrawn</text>
+                        </label>
+                    </div>
+                    <div class="col-3">
+                        <span asp-validation-for="StudentStatus" class="text-danger"></span>
+                    </div>
+                    
+                </div>
+                <div class="form-group row mb-2">
+                    <div class="col-9 offset-4">
+                        <input type="hidden" name="removePhoto" id="removePhoto" value="false" />
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 mt-2 ">
+                <div class="d-flex justify-content-end mb-1">
+                    <a id="btnPlus" class="btn btn-warning"><i class="fa fa-plus"></i>  Add Course</a>
+                </div>
+                <div id="CourseContainer">
+                    @foreach (var item in Model.CourseList)
+                    {
+                        <script>
+                            LoadData(@item);
+                        </script>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Students" class="btn btn-link"><i class="fa fa-arrow-left"></i> Back to list</a>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+@*    <script>
+        document.getElementById("btnRemovePhoto").addEventListener("click", function () {
+            document.getElementById("removePhoto").value = "true";
+        });
+    </script>*@
+
+    <script>
+        function deletePhoto() {
+            if (confirm(event.target.getAttribute("data-confirm-message"))) {
+                document.getElementById("removePhoto").value = "true";
+                document.getElementById("photo").style.display = "none";
+            }
+        }
+    </script>
+
+}

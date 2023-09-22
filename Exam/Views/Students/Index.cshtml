@@ -1,0 +1,211 @@
+﻿@model IEnumerable<Exam.Models.Student>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*new index code*@
+<div class="alert alert-success display-5 text-center">Student List - Round-53</div>
+<div class="row">
+    <div class="col">
+        <div class="d-flex justify-content-end">
+            <a asp-action="Create" asp-controller="Students" class="btn btn-outline-primary btn-sm mb-2"><i class="fa fa-plus"></i> Add New Record</a>
+        </div>
+        <table class="table table-bordered border-2 border-primary table-group-divider table-striped-columns table-hover table-sm table-responsive-sm">
+            <thead>
+                <tr class="table-primary">
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Student Name</th>
+                    <th class="text-center">Other Information</th>
+                    <th class="text-center">Fail in Exam</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center align-middle">
+                            <img class="rounded student-image" style="width:100px; height:100px;" src="@item.Image" />
+                        </td>
+                        <td class="text-center align-middle">
+                            <div class="d-flex justify-content-center"><strong>@Html.DisplayFor(x => item.StudentName)</strong></div>
+                        </td>
+                        <td class="align-middle">
+                            <strong>Date of Birth:</strong> @Html.DisplayFor(x => item.DateOfBirth) <br /><br />
+                            <strong>Phone:</strong> @Html.DisplayFor(x => item.Phone) <br /><br />
+                            <strong>Status:</strong>
+                            @if (item.StudentStatus == true)
+                            {
+                                <span class="text-danger">Withdrawn</span>
+                            }
+                            else if (item.StudentStatus == false)
+                            {
+                                <span class="text-success">Regular</span>
+                            }
+                        </td>
+                        
+                        <td>
+                            <table class="table table-bordered">
+                                <thead class="table-danger">
+                                    <tr class="text-center">
+                                        <th style="width: 5px;">Exam No</th>
+                                        <th style="width: 5px;">Course</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var i in item.Enrolls)
+                                    {
+                                        <tr class="text-center">
+                                            <td>@Html.DisplayFor(x => i.Course.CourseId)</td>
+                                            <td>@Html.DisplayFor(x => i.Course.CourseName)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="text-center align-middle">
+                            <div class="d-flex justify-content-center">
+                                <a asp-action="Edit" asp-controller="Students" class="btn btn-outline-success" asp-route-id="@item.StudentId">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>&nbsp;&nbsp;
+                                <a asp-action="Delete" asp-controller="Students" class="btn btn-outline-danger ml-2" asp-route-id="@item.StudentId" onclick="return confirm('Are you sure you want to delete this record?');">
+                                    <i class="fa fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@*
+            //Scaffoled index
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentStatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@
+
+@*//edited Scaffoled code*@
+
+@*<div class="main">
+    <div class="d-flex justify-content-end">
+        <a asp-action="Create" asp-controller="Students" class="btn btn-outline-primary btn-sm mb-2"> Add New Record</a>
+    </div>
+    <div class="col-12">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.StudentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(x => x.DateOfBirth)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(x => x.StudentStatus)
+                    </th>
+                    <th>
+                        Course Title
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfBirth)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            <img src="@item.Image" width="35" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentStatus)
+                        </td>
+                        <td>
+                            @foreach (var enroll in item.Enrolls)
+                            {
+                                <span>@enroll.Course.CourseName</span>
+
+                                <br />
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.StudentId" class="btn btn-outline-success">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.StudentId" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>*@
+
+
